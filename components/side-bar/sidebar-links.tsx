@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import LogoIcon from '@/assets/icons/nucleusdao-purple.svg';
+import LogoIcon from '@/assets/icons/cluster-purple.svg';
 import Link from 'next/link';
 import { DASHBOARD_URL } from '@/config/path';
 import { bottomSidebarNav, topSidebarNav } from './nav-data';
@@ -37,7 +37,6 @@ const Sidebar = ({ showNav, handleShowNav }: ISidebar) => {
               alt="Nucleus Dao Logo"
               width={!showNav ? 35 : 30}
             />
-            <BrandLogo className="text-[#282828] dark:text-white w-[100px] md:w-[120px]" />
           </div>
         </Link>
       </div>

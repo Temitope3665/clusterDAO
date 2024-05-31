@@ -68,7 +68,7 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
   const [___, setEnableIFrameWallet] = useState<boolean>(false);
 
   const aeSdk: any = new AeSdkAepp({
-    name: 'NucleusDAO',
+    name: 'ClusterDao',
     nodes: [
       { name: 'testnet', instance: new Node(TESTNET_NODE_URL) },
       { name: 'mainnet', instance: new Node(MAINNET_NODE_URL) },

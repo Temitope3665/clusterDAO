@@ -1,15 +1,15 @@
-import { getBasicDAO, getNucleusDAO } from './ae-utils';
+import { getBasicDAO, getClusterDao } from './ae-utils';
 import { ICreateDAOS, ICreateProposal } from './types';
 
 const getDAOs = async () => {
-  const contract = await getNucleusDAO();
+  const contract = await getClusterDao();
   const res = await contract.getDAOs();
   const daos = res.decodedResult;
   return daos;
 };
 
 const getAllProposals = async () => {
-  const contract = await getNucleusDAO();
+  const contract = await getClusterDao();
   const res = await contract.getAllProposals();
   const proposals = res.decodedResult;
   for (let i = 0; i < proposals.length; i++) {
@@ -24,14 +24,14 @@ const getAllProposals = async () => {
 };
 
 const getAUserActivitiesAcrossDAOs = async (userAddress: string) => {
-  const contract = await getNucleusDAO();
+  const contract = await getClusterDao();
   const res = await contract.getUserActivitiesAcrossDAOs(userAddress);
   const activities = res.decodedResult;
   return activities;
 };
 
 const createDAO = async (payload: ICreateDAOS) => {
-  const contract = await getNucleusDAO();
+  const contract = await getClusterDao();
   const res = await contract.createDAO(
     payload.name,
     payload.id,
@@ -61,7 +61,7 @@ const createProposal = async (payload: ICreateProposal) => {
 };
 
 const getEachDAO = async (id: string) => {
-  const contract = await getNucleusDAO();
+  const contract = await getClusterDao();
   const res = await contract.getDAO(id);
   const dao = res.decodedResult;
   return dao;
