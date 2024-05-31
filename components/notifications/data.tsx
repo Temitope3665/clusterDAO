@@ -1,4 +1,9 @@
-export const notificationData: { title: string; read: boolean; time: string; description: string }[] = [
+export const notificationData: {
+  title: string;
+  read: boolean;
+  time: string;
+  description: string;
+}[] = [
   {
     title: 'New DAO Created',
     read: false,
@@ -12,10 +17,9 @@ export const notificationData: { title: string; read: boolean; time: string; des
     description: '0xeda0c7bea13bcfa41c4856a5b26a9c48cdca5...',
   },
   {
-    title: 'Nucleus Proposal Updated',
+    title: 'Cluster Proposal Updated',
     read: true,
     time: '2 hrs',
     description: 'A new DAO has been created. You can join to sh...',
   },
-  
 ];

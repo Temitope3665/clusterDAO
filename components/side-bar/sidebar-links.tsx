@@ -34,7 +34,7 @@ const Sidebar = ({ showNav, handleShowNav }: ISidebar) => {
             <Image
               id="logo"
               src={LogoIcon}
-              alt="Nucleus Dao Logo"
+              alt="Cluster Dao Logo"
               width={!showNav ? 35 : 30}
             />
           </div>

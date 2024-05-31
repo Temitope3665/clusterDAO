@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 type FormData = any;
 
 const client = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_CLUSTER_URL}/`,
+  baseURL: `${process.env.NEXT_PUBLIC_CLUSTERnpm_URL}/`,
   timeout: 36000,
 });
 
