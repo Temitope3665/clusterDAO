@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import ErrorIcon from '@/assets/icons/error-icon-1.png';
-import { createDeepLinkUrl } from '@/libs/ae-utils';
+import { createDeepLinkUrl } from '@/libs/dao-utils';
 import { usePathname } from 'next/navigation';
 import { DASHBOARD_URL, HOME_URL } from '@/config/path';
 

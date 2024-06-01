@@ -19,21 +19,18 @@ interface IConfirmDisconnectWallet {
   open: boolean;
   defaultUser: { address: string; isConnected: boolean };
   setUser: (arg: { address: string; isConnected: boolean }) => void;
-  aeSdk: any;
 }
 
 const ConfirmDisconnectWallet = ({
   setOpen,
   open,
   setUser,
-  aeSdk,
 }: IConfirmDisconnectWallet) => {
   const [disconnecting, _] = useState<boolean>(false);
   const handleDisconnect = async () => {
     try {
       localStorage.removeItem('user');
       setUser({ address: '', isConnected: false });
-      await aeSdk.disconnectWallet(false);
     } catch (error) {
       console.error(error);
     }

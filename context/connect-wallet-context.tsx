@@ -7,25 +7,13 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {
-  IN_FRAME,
-  IS_MOBILE,
-  MAINNET_NODE_URL,
-  TESTNET_NODE_URL,
-  connectWallet,
-  resolveWithTimeout,
-} from '@/libs/ae-utils';
-import {
-  BrowserWindowMessageConnection,
-  walletDetector,
-} from '@aeternity/aepp-sdk';
+import { IN_FRAME, IS_MOBILE } from '@/libs/dao-utils';
 import ConfirmWalletDialog from './component/confirm-wallet';
 import ConfirmDisconnectWallet from './component/confirm-disconnect';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { HandleWalletFunction, IConnectWalletContext } from '@/libs/types';
 import { HOME_URL } from '@/config/path';
 import { AppContext } from './app-context';
-import { AeSdkAepp, Node } from '@aeternity/aepp-sdk';
 
 export const ConnectWalletContext = createContext<IConnectWalletContext>({
   user: { address: '', isConnected: false },
@@ -64,29 +52,6 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
   const [wallets, setWallets] = useState<any>([]);
   const [scanningForWallets, setScanningForWallets] = useState<boolean>(false);
   const [_, setConnectingTo] = useState<any>(null);
-  const [__, setConnectingToWallet] = useState<boolean>(false);
-  const [___, setEnableIFrameWallet] = useState<boolean>(false);
-
-  const aeSdk: any = new AeSdkAepp({
-    name: 'ClusterDao',
-    nodes: [
-      { name: 'testnet', instance: new Node(TESTNET_NODE_URL) },
-      { name: 'mainnet', instance: new Node(MAINNET_NODE_URL) },
-    ],
-    onNetworkChange: async ({ networkId }) => {
-      const [{ name }] = (await aeSdk.getNodesInPool()).filter(
-        (node: any) => node.nodeNetworkId === networkId
-      );
-      aeSdk.selectNode(name);
-    },
-    onAddressChange: ({ current }: any) => {
-      const currentAccountAddress = Object.keys(current)[0];
-      if (!currentAccountAddress) return;
-      const user = { address: currentAccountAddress, isConnected: true };
-      setUser(user);
-    },
-    onDisconnect: () => console.log('Aepp is disconnected'),
-  });
 
   const [connectionError, setConnectionError] = useState<{
     message: string;
@@ -116,30 +81,8 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
       addDefaultWallet();
     } else {
       setScanningForWallets(true);
-      const scannerConnection = new BrowserWindowMessageConnection();
 
       let stopScan: any = null;
-
-      const walletScanningTimeout = setTimeout(() => {
-        stopScan?.();
-        addDefaultWallet();
-        setScanningForWallets(false);
-      }, 5000);
-
-      const handleWallet: HandleWalletFunction = async ({ wallets }: any) => {
-        const updatedWallets = Object.values(wallets).map((wallet: any) => ({
-          ...wallet,
-          description: 'Superhero Wallet', // Change this to your desired value
-        }));
-        setWallets(updatedWallets);
-        setScanningForWallets(false);
-
-        clearTimeout(walletScanningTimeout);
-        stopScan?.();
-        setScanningForWallets(false);
-      };
-
-      stopScan = walletDetector(scannerConnection, handleWallet);
     }
   };
 
@@ -149,26 +92,6 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
     setConnectingTo(walletObj.info.id);
     let watchUntilTruly: any = null;
 
-    try {
-      await resolveWithTimeout(5000, async () => {});
-    } catch (error) {
-      alert('connect wallet timeout');
-      setIsConnecting(false);
-      setConnectingTo(null);
-      return;
-    }
-
-    await connectWallet({
-      setConnectingToWallet,
-      setEnableIFrameWallet,
-      setUser,
-      address,
-      setConnectionError,
-      setOpenModal,
-      walletObj,
-      // isHome,
-      aeSdk,
-    });
     setIsConnecting(false);
     setConnectingTo(null);
   };
@@ -199,7 +122,6 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
     isConnecting,
     handleDisconnect,
     setUser,
-    aeSdk,
   };
 
   return (
@@ -221,7 +143,6 @@ export const ConnectWalletProvider = ({ children }: IAppProvider) => {
             open={showDisconnectModal}
             setUser={setUser}
             defaultUser={defaultUser}
-            aeSdk={aeSdk}
           />
           {children}
         </React.Fragment>

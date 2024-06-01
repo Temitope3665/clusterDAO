@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { ModeToggle } from './themes/mode-toggle';
 import Image from 'next/image';
 import { ChevronDown, Menu, UserRound, X } from 'lucide-react';
-import LogoIcon from '@/assets/icons/clusterdao-purple.svg';
+import LogoIcon from '@/assets/icons/cluster-purple.svg';
 import Link from 'next/link';
 import { DASHBOARD_URL } from '@/config/path';
 import { BrandLogo } from '@/assets/svgs';

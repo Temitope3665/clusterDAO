@@ -1,4 +1,4 @@
-import { getBasicDAO, getClusterDao } from './ae-utils';
+import { getBasicDAO, getClusterDao } from './dao-utils';
 import { ICreateDAOS, ICreateProposal } from './types';
 
 const getDAOs = async () => {
