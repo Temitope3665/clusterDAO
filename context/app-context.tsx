@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { ConnectWalletProvider } from './connect-wallet-context';
-import { getNucleusDAO, getBasicDAO } from '@/libs/dao-utils';
+import { getBasicDAO } from '@/libs/dao-utils';
 import {
   IAppProvider,
   INewProposal,
@@ -111,7 +111,7 @@ export const AppContextProvider = ({ children }: IAppProvider) => {
     votingTime: number,
     quorum: number
   ) => {
-    const contract = await getNucleusDAO();
+    const contract = await getclusterDAO();
     const res = await contract.createDAO(
       name,
       id,
@@ -161,7 +161,7 @@ export const AppContextProvider = ({ children }: IAppProvider) => {
   };
 
   const getAUserActivitiesAcrossDAOs = async (userAddress: string) => {
-    const contract = await getNucleusDAO();
+    const contract = await getclusterDAO();
     const res = await contract.getUserActivitiesAcrossDAOs(userAddress);
     const activities = res.decodedResult;
     return activities;
